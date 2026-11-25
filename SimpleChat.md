@@ -14,11 +14,11 @@ Arguments are used to aid the command in preforming it's function. This is also 
 
 ### Communication
 ```
-		    [ Server ]
-			/       \
-		   /         \
-		  /           \
-		[Client 1] 	[Client 2]
+            [ Server ]
+            /       \
+           /         \
+          /           \
+     [Client 1]   [Client 2]
 ```
 Simple Chat works around the common concept of one server, to many clients. Upon connection, the client should send an identification command, with the nickname of the client.
 
