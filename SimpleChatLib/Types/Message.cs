@@ -32,4 +32,10 @@ public class Message
         return $"Command: {Command}\nSource: {Source}\nArgs: {string.Join(" ", Args)}";
     }
 
+    public byte[] ToBytes()
+    {
+        var rawMsg = $"|{Source} {Command}{(Args.Length > 0 ? " " + string.Join(" ", Args) : "")}|";
+        return System.Text.Encoding.UTF8.GetBytes(rawMsg);
+    }
+
 }
