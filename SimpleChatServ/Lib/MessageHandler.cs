@@ -13,7 +13,7 @@ public static class MessageHandler
                 await HandleJoin(message, client, clientQueue);
                 break;
             case Commands.Ping:
-                await HandlePing(message, client);
+                await HandlePing(client);
                 break;
             case Commands.Say:
                 await HandleSay(message, client, clientQueue);
@@ -49,7 +49,7 @@ public static class MessageHandler
         await clientQueue.SendMessageToAll(joinMessage);
     }
 
-    public static async Task HandlePing(Message message, Client client)
+        public static async Task HandlePing(Client client)
     {
         var pongMessage = new Message
         {
@@ -58,7 +58,7 @@ public static class MessageHandler
         };
         await client.SendMessage(pongMessage);
     }
-    
+
     public static async Task HandleSay(Message message, Client client, ClientQueue clientQueue)
     {
         // Handle Say command
