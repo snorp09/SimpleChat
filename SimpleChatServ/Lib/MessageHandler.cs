@@ -7,10 +7,13 @@ public static class MessageHandler
         switch (message.Command)
         {
             case Commands.Ok:
-                // Handle OK command
+                await HandleOk(client);
                 break;
             case Commands.Join:
                 await HandleJoin(message, client, clientQueue);
+                break;
+            case Commands.Disconnect:
+                await HandleDisconnect(client, clientQueue);
                 break;
             case Commands.Ping:
                 await HandlePing(client);
@@ -49,8 +52,9 @@ public static class MessageHandler
         await clientQueue.SendMessageToAll(joinMessage);
     }
 
-        public static async Task HandlePing(Client client)
+    public static async Task HandlePing(Client client)
     {
+        client.StillAlive = true;
         var pongMessage = new Message
         {
             Source = "Server",
@@ -69,5 +73,16 @@ public static class MessageHandler
         };
         await client.SendMessage(receivedMessage);
         await clientQueue.SendMessageToAll(message);
+    }
+
+    public static Task HandleDisconnect(Client client, ClientQueue clientQueue)
+    {
+        return clientQueue.DisconnectClient(client);
+    }
+
+    public static Task HandleOk(Client client)
+    {
+        client.StillAlive = true;
+        return Task.CompletedTask;
     }
 }

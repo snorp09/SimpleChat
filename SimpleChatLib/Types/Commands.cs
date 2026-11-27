@@ -7,6 +7,6 @@ public static class Commands
     public const string Err = "Err";
     public const string Join = "Join";
     public const string Ping = "Ping";
-    public const string Disconnected = "Disconnected";
+    public const string Disconnect = "Disconnect";
     public const string Say = "Say";
 }

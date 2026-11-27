@@ -9,6 +9,16 @@ listener.Bind(ipEndPoint);
 listener.Listen(100);
 Console.WriteLine("Server is listening on port 12346...");
 var clientQueue = new ClientQueue();
+var aliveCheckTimer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+
+_ = Task.Run(async () =>
+{
+    while (await aliveCheckTimer.WaitForNextTickAsync())
+    {
+        Console.WriteLine("Performing alive check...");
+        await clientQueue.AliveCheck();
+    }
+});
 
 while (true)
 {
@@ -24,6 +34,5 @@ while (true)
             await MessageHandler.HandleMessage(message, client, clientQueue);
         }
     });
-
 }
 
